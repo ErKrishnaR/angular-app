@@ -5,8 +5,7 @@ pipeline {
     BRANCH = 'main'
     WWWROOT = '/var/www'
     SSHUSER = 'jenkins'
-    SSHKEY = '/var/lib/jenkins/.ssh/Controller2Keypair.pem'
-  }
+      }
   stages {
     stage('Audit Tools') {
       steps {
@@ -16,8 +15,7 @@ pipeline {
         sh "npm --version"
         sh "ng --version"
         sh "ansible --version"
-        echo "Workspace Folder: ${WORKSPACE}"
-      }
+       }
     }
     stage('Install packages') {
       steps {
