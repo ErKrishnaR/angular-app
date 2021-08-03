@@ -24,3 +24,5 @@ pipeline {
         sh "git pull origin ${BRANCH}"
       }
     }
+    }
+}
