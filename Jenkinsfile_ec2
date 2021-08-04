@@ -5,30 +5,29 @@ pipeline {
     BRANCH = 'main'
     WWWROOT = '/var/www'
     SSHUSER = 'jenkins'
-    SSHKEY = '/var/lib/jenkins/.ssh/Controller2Keypair.pem'
+    SSHKEY = 'C:\Program Files (x86)\Jenkins\Controller2Keypair.pem'
   }
   stages {
     stage('Audit Tools') {
       steps {
         echo "Audit all tools to be use on this pipeline ${BRANCH}"
-        sh "git --version"
-        sh "node --version"
-        sh "npm --version"
-        sh "ng --version"
-        sh "ansible --version"
+        bat "git --version"
+        bat "node --version"
+        bat "npm --version"
+        bat "ng --version"
         echo "Workspace Folder: ${WORKSPACE}"
       }
     }
     stage('Install packages') {
       steps {
-        sh "git pull origin ${BRANCH}"
+        bat "git pull origin ${BRANCH}"
       }
     }
     stage('Install Front-End Packages') {
       steps {
         dir("${WORKSPACE}/conduit-ui") {
           echo "Install conduit UI packages"
-          sh "npm install"
+          bat "npm install"
         }
       }
     }
@@ -42,16 +41,16 @@ pipeline {
     stage('Build UI') {
       steps {
         dir("${WORKSPACE}/conduit-ui") {
-          sh "npm run build"
+          bat "npm run build"
         }
       }
     }
     stage('Deploy app to WEB01') {
       steps {
-        sh "ssh -i ${SSHKEY} Web01 rm -rf /home/${SSHUSER}/conduit"
-        sh "scp -i ${SSHKEY} -r ${WORKSPACE}/conduit-ui/dist Web01:/home/${SSHUSER}/conduit"
-        sh "ssh -i ${SSHKEY} Web01 sudo rm -rf ${WWWROOT}/conduit"
-        sh "ssh -i ${SSHKEY} Web01 sudo cp -r /home/${SSHUSER}/conduit ${WWWROOT}/conduit"
+        bat "ssh -i ${SSHKEY} Web01 rm -rf /home/${SSHUSER}/conduit"
+        bat "scp -i ${SSHKEY} -r ${WORKSPACE}/conduit-ui/dist Web01:/home/${SSHUSER}/conduit"
+        bat "ssh -i ${SSHKEY} Web01 sudo rm -rf ${WWWROOT}/conduit"
+        bat "ssh -i ${SSHKEY} Web01 sudo cp -r /home/${SSHUSER}/conduit ${WWWROOT}/conduit"
       }
     }
   }
