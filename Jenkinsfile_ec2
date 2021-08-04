@@ -47,11 +47,6 @@ pipeline {
     }
     stage('Deploy app to WEB01') {
       steps {
-        cmd "-scp -i C:\\Program Files (x86)\\Jenkins\\Controller2Keypair.pem  Web01 rm -rf /home/${SSHUSER}/conduit"
-        cmd "ssh -i ${SSHKEY} Web01 rm -rf /home/${SSHUSER}/conduit"
-        cmd "scp -i ${SSHKEY} -r ${WORKSPACE}/conduit-ui/dist Web01:/home/${SSHUSER}/conduit"
-        cmd "ssh -i ${SSHKEY} Web01 sudo rm -rf ${WWWROOT}/conduit"
-        cmd "ssh -i ${SSHKEY} Web01 sudo cp -r /home/${SSHUSER}/conduit ${WWWROOT}/conduit"
         echo "Deplyoing Application"
       }
     }
