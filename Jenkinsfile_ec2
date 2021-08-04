@@ -47,6 +47,7 @@ pipeline {
     }
     stage('Deploy app to WEB01') {
       steps {
+        bat "pscp -scp -i C:\\Program Files (x86)\\Jenkins\\Controller2Keypair.pem **/target/*.war Web01 rm -rf /home/${SSHUSER}/conduit"
         echo "Deplyoing Application"
       }
     }
