@@ -6,6 +6,8 @@ pipeline {
     WWWROOT = '/var/www'
     SSHUSER = 'jenkins'
     SSHKEY = 'C:\\Program Files (x86)\\Jenkins\\Controller2Keypair.pem'
+    SSHKEY = '/var/lib/jenkins/.ssh/aws_ec2_key.pem'
+    WEBSERVER = 'Web01'
   }
   stages {
     stage('Audit Tools') {
@@ -15,6 +17,7 @@ pipeline {
         sh "node --version"
         sh "npm --version"
         echo "ng --version"
+        sh "ansible --version"
         echo "Workspace Folder: ${WORKSPACE}"
       }
     }
@@ -45,14 +48,27 @@ pipeline {
         }
       }
     }
-    stage('Deploy app to WEB01') {
+    stage('Deploy app to WEB03') {
       steps {
-        sh "ssh -i ${SSHKEY} Web01 rm -rf /home/${SSHUSER}/conduit"
+         sh "ssh -i ${SSHKEY} Web01 rm -rf /home/${SSHUSER}/conduit"
         sh "scp -i ${SSHKEY} -r ${WORKSPACE}/conduit-ui/dist Web01:/home/${SSHUSER}/conduit"
         sh "ssh -i ${SSHKEY} Web01 sudo rm -rf ${WWWROOT}/conduit"
         sh "ssh -i ${SSHKEY} Web01 sudo cp -r /home/${SSHUSER}/conduit ${WWWROOT}/conduit"
-      }
+                
       }
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
