@@ -47,10 +47,7 @@ pipeline {
     }
     stage('Deploy app to WEB01') {
       steps {
-        bat "ssh -i ${SSHKEY} Web01 rm -rf /home/${SSHUSER}/conduit"
-        bat "scp -i ${SSHKEY} -r ${WORKSPACE}/conduit-ui/dist Web01:/home/${SSHUSER}/conduit"
-        bat "ssh -i ${SSHKEY} Web01 sudo rm -rf ${WWWROOT}/conduit"
-        bat "ssh -i ${SSHKEY} Web01 sudo cp -r /home/${SSHUSER}/conduit ${WWWROOT}/conduit"
+        echo "Deplyoing Application"
       }
     }
   }
