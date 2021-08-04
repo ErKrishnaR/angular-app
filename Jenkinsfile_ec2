@@ -5,7 +5,7 @@ pipeline {
     BRANCH = 'main'
     WWWROOT = '/var/www'
     SSHUSER = 'jenkins'
-    SSHKEY = 'C:\\Program Files (x86)\Jenkins\Controller2Keypair.pem'
+    SSHKEY = 'C:\\Program Files (x86)\\Jenkins\\Controller2Keypair.pem'
   }
   stages {
     stage('Audit Tools') {
