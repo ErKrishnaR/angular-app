@@ -6,9 +6,7 @@ pipeline {
     WWWROOT = '/var/www'
     SSHUSER = 'jenkins'
     SSHKEY = 'C:\\Program Files (x86)\\Jenkins\\Controller2Keypair.pem'
-    SSHKEY = '/var/lib/jenkins/.ssh/aws_ec2_key.pem'
-    WEBSERVER = 'Web01'
-  }
+   }
   stages {
     stage('Audit Tools') {
       steps {
